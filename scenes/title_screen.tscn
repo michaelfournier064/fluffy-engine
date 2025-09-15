@@ -1,0 +1,57 @@
+[gd_scene load_steps=5 format=3 uid="uid://d3s1ewx0qlu8i"]
+
+[ext_resource type="Texture2D" uid="uid://chr7kt2k5ab77" path="res://assets/images/titleScreen.jpg" id="2_s4lrb"]
+[ext_resource type="Script" uid="uid://vt4ddny6bwcw" path="res://scripts/title_screen.gd" id="2_title_script"]
+[ext_resource type="Script" uid="uid://d1e6ujarcaax8" path="res://scripts/utilities/custom_button.gd" id="3_dc4i4"]
+[ext_resource type="Theme" uid="uid://dfgyv6qfskjpl" path="res://ui/theme/button_no_outline.tres" id="3_mgrm8"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("2_title_script")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_s4lrb")
+centered = false
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+offset_right = 1920.0
+offset_bottom = 1080.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AspectRatioContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="NewGameButton" type="Button" parent="AspectRatioContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_mgrm8")
+theme_override_font_sizes/font_size = 20
+text = "New Game"
+flat = true
+script = ExtResource("3_dc4i4")
+
+[node name="LoadGameButton" type="Button" parent="AspectRatioContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_mgrm8")
+theme_override_font_sizes/font_size = 20
+text = "Load Game"
+flat = true
+script = ExtResource("3_dc4i4")
+
+[node name="SettingsButton" type="Button" parent="AspectRatioContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_mgrm8")
+theme_override_font_sizes/font_size = 20
+text = "Settings"
+flat = true
+script = ExtResource("3_dc4i4")
+
+[node name="QuitGameButton" type="Button" parent="AspectRatioContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_mgrm8")
+theme_override_font_sizes/font_size = 20
+text = "Quit Game"
+flat = true
+script = ExtResource("3_dc4i4")
