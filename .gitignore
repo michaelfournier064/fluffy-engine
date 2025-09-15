@@ -1,41 +1,53 @@
-# Prerequisites
-*.d
+# ----------------------------
+# Godot 4 .gitignore template
+# ----------------------------
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
 
-# Precompiled Headers
-*.gch
-*.pch
+# Godot import cache (regenerates automatically)
+.import/
+*.import
 
-# Linker files
-*.ilk
-
-# Debugger Files
-*.pdb
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
+# Exported builds
+export/
 *.exe
-*.out
 *.app
+*.x86_64
+*.pck
+*.apk
+*.aab
+*.ipa
+*.zip
+*.tar.gz
 
-# debug information files
-*.dwo
+# Logs
+logs/
+*.log
+
+# Godot editor settings (per-user, not project)
+.editor_settings-3.tres
+.editor_settings-4.tres
+
+# Mono / C# specific (if you’re using it)
+.mono/
+data_*/
+mono_crash.*
+
+# VSCode / JetBrains / other IDEs
+.vscode/
+.idea/
+*.sln
+*.csproj
+*.user
+*.vs/
+
+# Godot .godot folder:
+# ⚠️ Contains important UID + project metadata. DO NOT ignore everything.
+# Keep uid_cache and config, ignore local editor crash logs.
+.godot/
+!.godot/uid_cache*
+!.godot/global_script_class_cache.cfg
+!.godot/editor_settings-*.tres
