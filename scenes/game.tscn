@@ -1,0 +1,77 @@
+[gd_scene load_steps=16 format=3 uid="uid://ck5vhayufm7b6"]
+
+[ext_resource type="PackedScene" uid="uid://dicdy76xwqg0i" path="res://scenes/player.tscn" id="1_0koy1"]
+[ext_resource type="ArrayMesh" uid="uid://b5ftm5xhgtn2o" path="res://assets/addons/terrain3d/Beach_Prop_Shell_2.obj" id="2_xg5gb"]
+[ext_resource type="Terrain3DMaterial" uid="uid://dur0pd6wevvqb" path="res://assets/materials/terrain/new_terrain_3d_material.tres" id="3_ewwf0"]
+[ext_resource type="Terrain3DAssets" uid="uid://dal3jhw6241qg" path="res://data/assets.tres" id="4_2ig8h"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i00ul"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_1a0p6"]
+material = SubResource("StandardMaterial3D_i00ul")
+size = Vector3(100, 0.5, 100)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r4426"]
+size = Vector3(100, 0.5, 96.9268)
+
+[sub_resource type="Skin" id="Skin_wqu00"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qatqv"]
+albedo_color = Color(0.858824, 0.572549, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pnrg7"]
+albedo_color = Color(0.290196, 1, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lshak"]
+albedo_color = Color(0.453979, 0.452987, 0.764272, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yskbe"]
+albedo_color = Color(0.377416, 0.924584, 0.754139, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_emgmd"]
+albedo_color = Color(0.836464, 0.437595, 0.403332, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lkr1e"]
+albedo_color = Color(0.507752, 0.771462, 0.699569, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wrb2c"]
+albedo_color = Color(0.778488, 0.651847, 1, 1)
+
+[node name="Node3D" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.486288, -0.0543931, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.161719, 0.665756, -0.728434, -0.926005, 0.152778, 0.345214, 0.341117, 0.730361, 0.591787, -0.601861, -0.0919211, 1.39344)
+
+[node name="Player" parent="." instance=ExtResource("1_0koy1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.271993, -0.355645, 0.2185)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(1, -0.000994726, -1.49318e-05, 0.000994838, 0.999887, 0.0150093, 0, -0.0150093, 0.999887, 0.440076, -0.663839, 1.30032)
+mesh = SubResource("BoxMesh_1a0p6")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.53662)
+shape = SubResource("BoxShape3D_r4426")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(9.99949, 0, -0.101227, 0, 10, 0, 0.101227, 0, 9.99949, 0, 0, 0)
+mesh = ExtResource("2_xg5gb")
+skin = SubResource("Skin_wqu00")
+surface_material_override/0 = SubResource("StandardMaterial3D_qatqv")
+surface_material_override/1 = SubResource("StandardMaterial3D_pnrg7")
+surface_material_override/2 = SubResource("StandardMaterial3D_lshak")
+surface_material_override/3 = SubResource("StandardMaterial3D_yskbe")
+surface_material_override/4 = SubResource("StandardMaterial3D_emgmd")
+surface_material_override/5 = SubResource("StandardMaterial3D_lkr1e")
+surface_material_override/6 = SubResource("StandardMaterial3D_wrb2c")
+
+[node name="Terrain3D" type="Terrain3D" parent="."]
+data_directory = "res://data/terrain3d"
+material = ExtResource("3_ewwf0")
+assets = ExtResource("4_2ig8h")
+top_level = true
+metadata/_edit_lock_ = true

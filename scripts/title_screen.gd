@@ -12,7 +12,9 @@ func _ready() -> void:
 	load_game_button.pressed_confirmed.connect(on_load_game_pressed)
 	settings_button.pressed_confirmed.connect(on_settings_pressed)
 
-func on_new_game_pressed() -> void: print("New Game Pressed")
+func on_new_game_pressed():
+	get_tree().change_scene_to_file("res://scenes/game.tscn")
+
 func on_load_game_pressed() -> void: print("Load Game Pressed")
 func on_settings_pressed() -> void: print("Settings Pressed")
 func _on_quit_game_pressed() -> void: get_tree().quit()

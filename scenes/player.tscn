@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://dicdy76xwqg0i"]
+
+[ext_resource type="Script" path="res://scripts/player/player.gd" id="1_mcqff"]
+[ext_resource type="PackedScene" uid="uid://powuiocgyep2" path="res://assets/models/Mage.glb" id="2_0prgc"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ycqpw"]
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_mcqff")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.39423, 0)
+shape = SubResource("CapsuleShape3D_ycqpw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+
+[node name="Mage" parent="MeshInstance3D" instance=ExtResource("2_0prgc")]
+transform = Transform3D(0.999629, 0.0272238, 0, -0.0272238, 0.999629, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MeshInstance3D"]
+root_node = NodePath("../..")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-1, 1.51808e-08, -8.60946e-08, 0, 0.984808, 0.173648, 8.74228e-08, 0.173648, -0.984808, 0, 5, -8)
+fov = 60.0
