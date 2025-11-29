@@ -45,6 +45,8 @@ func _on_button_up() -> void:
 	_animate_scale(_base_scale * (hover_scale if _hovered else 1.0))
 
 func _animate_scale(target: Vector2) -> void:
+	if not is_inside_tree():
+		return
 	if _tween:
 		_tween.kill()
 	_tween = get_tree().create_tween()
