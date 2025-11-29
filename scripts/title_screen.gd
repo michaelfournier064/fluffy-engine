@@ -14,5 +14,6 @@ func _ready() -> void:
 
 func on_new_game_pressed() -> void: print("New Game Pressed")
 func on_load_game_pressed() -> void: print("Load Game Pressed")
-func on_settings_pressed() -> void: print("Settings Pressed")
+func on_settings_pressed(): 
+	get_tree().change_scene_to_file("res://scenes/settings_screen.tscn")
 func _on_quit_game_pressed() -> void: get_tree().quit()
