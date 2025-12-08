@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://05081cov7t7x"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fsmdc"]
+load_path = "res://.godot/imported/character_tilesheet.png-ec13da9c61a35efb04a7c8a3a4561575.ctex"
+
+[node name="TestSprite" type="Sprite2D"]
+texture = SubResource("CompressedTexture2D_fsmdc")

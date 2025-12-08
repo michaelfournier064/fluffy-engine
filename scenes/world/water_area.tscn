@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://bj5m8qw3t70ak"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_water"]
+size = Vector2(400, 300)
+
+[node name="WaterArea" type="Area2D"]
+
+[node name="WaterSprite" type="ColorRect" parent="."]
+offset_left = -200.0
+offset_top = -150.0
+offset_right = 200.0
+offset_bottom = 150.0
+color = Color(0.2, 0.4, 0.7, 0.7)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_water")
