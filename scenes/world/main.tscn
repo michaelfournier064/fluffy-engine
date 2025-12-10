@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dw5ky4vn3y8hb"]
+[gd_scene load_steps=4 format=3 uid="uid://dw5ky4vn3y8hb"]
 
 [ext_resource type="PackedScene" uid="uid://c6qrw7yt8y5sm" path="res://scenes/player/player.tscn" id="1_player"]
 [ext_resource type="PackedScene" uid="uid://bj5m8qw3t70ak" path="res://scenes/world/water_area.tscn" id="2_water"]
+[ext_resource type="PackedScene" uid="uid://cyph3j5w8fk2d" path="res://scenes/ui/inventory_ui.tscn" id="3_inventory"]
 
 [node name="Main" type="Node2D"]
 
@@ -24,3 +25,5 @@ position = Vector2(640, 200)
 
 [node name="Player" parent="." instance=ExtResource("1_player")]
 position = Vector2(640, 500)
+
+[node name="InventoryUI" parent="." instance=ExtResource("3_inventory")]

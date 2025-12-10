@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://bk4napw2xfk3e"]
+
+[ext_resource type="Script" path="res://scripts/ui/fish_inventory_item.gd" id="1_fish_item"]
+
+[node name="FishInventoryItem" type="HBoxContainer"]
+script = ExtResource("1_fish_item")
+
+[node name="FishIcon" type="TextureRect" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="FishNameLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Fish Name"
+
+[node name="RarityLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+text = "[Rarity]"
+
+[node name="CountLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+text = "x0"
+
+[node name="ValueLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0 Gold"

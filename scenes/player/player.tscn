@@ -1,7 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://c6qrw7yt8y5sm"]
+[gd_scene load_steps=16 format=3 uid="uid://c6qrw7yt8y5sm"]
 
 [ext_resource type="Script" uid="uid://dn8uabaqqhx37" path="res://scripts/player.gd" id="1_player"]
 [ext_resource type="Texture2D" uid="uid://dq450lxsxoq7x" path="res://assets/tilesets/fisherplayer.png" id="2_texture"]
+[ext_resource type="PackedScene" uid="uid://cqgf7v8w2xk3e" path="res://scenes/ui/fishing_ui.tscn" id="3_fishing_ui"]
+[ext_resource type="Script" path="res://scripts/fishing/fishing_system.gd" id="4_fishing_system"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_attack1"]
 atlas = ExtResource("2_texture")
@@ -80,6 +82,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_player"]
 size = Vector2(30, 40)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_interaction"]
+radius = 50.0
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_player")
 
@@ -94,3 +99,18 @@ shape = SubResource("RectangleShape2D_player")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(1.3, 1.3)
+
+[node name="FishingSystem" type="Node" parent="."]
+script = ExtResource("4_fishing_system")
+
+[node name="FishingUI" parent="." instance=ExtResource("3_fishing_ui")]
+
+[node name="InteractionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+shape = SubResource("CircleShape2D_interaction")
+
+[connection signal="area_entered" from="InteractionArea" to="." method="_on_water_area_entered"]
+[connection signal="area_exited" from="InteractionArea" to="." method="_on_water_area_exited"]
