@@ -1,16 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://bj5m8qw3t70ak"]
+[gd_scene load_steps=5 format=3 uid="uid://bj5m8qw3t70ak"]
 
 [ext_resource type="Script" uid="uid://5avi1k8jnngd" path="res://scripts/world/water_area.gd" id="1_water"]
 [ext_resource type="TileSet" uid="uid://dd7vqltyn3ch4" path="res://assets/sprites/new_tile_set.tres" id="2_wwy57"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_water"]
-size = Vector2(400, 300)
+size = Vector2(368, 268)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_blocker"]
+size = Vector2(368, 268)
 
 [node name="WaterArea" type="Area2D"]
 script = ExtResource("1_water")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_water")
+
+[node name="WaterBlocker" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WaterBlocker"]
+shape = SubResource("RectangleShape2D_blocker")
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource("2_wwy57")
