@@ -4,15 +4,25 @@ extends Node
 ## Global game state manager
 ## Stores current game session data and interfaces with database
 
+## Save data
 var current_save_id: int = -1
 var player_name: String = ""
+var current_scene: String = ""
+
+## Player stats
 var player_level: int = 1
 var player_experience: int = 0
 var player_gold: int = 0
 var fish_caught: int = 0
 var total_playtime: int = 0
 var player_position: Vector2 = Vector2.ZERO
-var current_scene: String = ""
+
+## Player upgrades (purchased from shop)
+var legendary_fish_chance_bonus: int = 0  # Additional % chance for legendary fish
+
+## Player pets (purchased from shop)
+var owned_pets: Array[String] = []  # List of pet names the player owns
+var equipped_pet: String = ""  # Currently equipped pet (empty = none equipped)
 
 signal game_saved()
 signal game_loaded()
@@ -67,7 +77,10 @@ func create_new_game(save_name: String, p_name: String = "") -> void:
 	fish_caught = 0
 	total_playtime = 0
 	player_position = Vector2.ZERO
-	
+	legendary_fish_chance_bonus = 0
+	owned_pets.clear()
+	equipped_pet = ""
+
 	# Start new game
 	get_tree().change_scene_to_file("res://scenes/world/main.tscn")
 
@@ -101,3 +114,6 @@ func reset_game_state() -> void:
 	total_playtime = 0
 	player_position = Vector2.ZERO
 	current_scene = ""
+	legendary_fish_chance_bonus = 0
+	owned_pets.clear()
+	equipped_pet = ""

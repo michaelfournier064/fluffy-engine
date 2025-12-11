@@ -67,21 +67,43 @@ func _ready() -> void:
 	if fishing_ui and fishing_system:
 		fishing_ui.set_fishing_system(fishing_system)
 
+	# Connect to fishing system signals
+	if fishing_system:
+		fishing_system.fishing_ended.connect(_on_fishing_ended)
+		fishing_system.fish_caught.connect(_on_fish_caught)
+		fishing_system.fish_escaped.connect(_on_fish_escaped)
+
 func _input(event: InputEvent) -> void:
+	# Check for minigame input first (W, A, S, D)
+	if fishing_system and fishing_system.minigame_active:
+		if event.is_action_pressed("move_up"):
+			fishing_system.check_key_input("move_up")
+			return
+		elif event.is_action_pressed("move_down"):
+			fishing_system.check_key_input("move_down")
+			return
+		elif event.is_action_pressed("move_left"):
+			fishing_system.check_key_input("move_left")
+			return
+		elif event.is_action_pressed("move_right"):
+			fishing_system.check_key_input("move_right")
+			return
+
 	if event.is_action_pressed("cast_line"):
 		if is_fishing:
-			# Attempt to reel in (catch the fish)
-			fishing_system.attempt_catch()
+			# Attempt to reel in (catch the fish / start minigame)
+			if fishing_system.fish_hooked_active:
+				fishing_system.attempt_catch()
 		elif in_water_area:
 			# Start fishing
 			toggle_fishing()
 
 func toggle_fishing() -> void:
 	if not in_water_area and not is_fishing:
-		print("Need to be near water to fish!")
 		return
 
 	is_fishing = !is_fishing
+
 	if is_fishing:
 		# Play casting animation if available, otherwise fishing
 		if animated_sprite.sprite_frames.has_animation("casting"):
@@ -96,11 +118,23 @@ func toggle_fishing() -> void:
 # Called when entering water area
 func _on_water_area_entered(_area: Area2D) -> void:
 	in_water_area = true
-	print("Entered water area - can fish here!")
 
 # Called when leaving water area
 func _on_water_area_exited(_area: Area2D) -> void:
 	in_water_area = false
 	if is_fishing:
 		toggle_fishing()  # Stop fishing if you leave water
-	print("Left water area")
+
+# Called when fishing ends (success or failure)
+func _on_fishing_ended() -> void:
+	is_fishing = false
+
+# Called when fish is caught
+func _on_fish_caught(_fish_data: Dictionary) -> void:
+	# Fishing will end automatically via fishing_ended signal
+	pass
+
+# Called when fish escapes
+func _on_fish_escaped() -> void:
+	# Fishing will end automatically via fishing_ended signal
+	pass

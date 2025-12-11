@@ -253,6 +253,12 @@ func get_fish_collection(save_id: int) -> Array:
 	db.query_with_bindings(query, [save_id])
 	return db.query_result
 
+## Delete a fish from collection (for selling)
+func delete_fish_from_collection(collection_id: int) -> void:
+	var query = "DELETE FROM fish_collection WHERE collection_id = ?;"
+	db.query_with_bindings(query, [collection_id])
+	print("Deleted fish from collection ID: " + str(collection_id))
+
 ## Get aggregated fish collection with counts
 func get_fish_collection_summary(save_id: int) -> Array:
 	var query = """
