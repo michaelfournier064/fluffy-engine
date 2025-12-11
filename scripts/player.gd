@@ -74,6 +74,13 @@ func _ready() -> void:
 		fishing_system.fish_escaped.connect(_on_fish_escaped)
 
 func _input(event: InputEvent) -> void:
+	# Left click to cancel fishing
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			if is_fishing:
+				toggle_fishing()
+				return
+
 	# Check for minigame input first (W, A, S, D)
 	if fishing_system and fishing_system.minigame_active:
 		if event.is_action_pressed("move_up"):

@@ -68,7 +68,8 @@ var shop_upgrades = [
 ## Pets - Companions that follow you around
 ## Each pet is a one-time purchase
 var shop_pets = [
-	{"name": "🐙 Octopet", "price": 100, "description": "Mystical ocean friend"}
+	{"name": "🐙 Octopet", "price": 100, "description": "Mystical ocean friend"},
+	{"name": "🐧 Pengpet", "price": 100, "description": "Adorable penguin pal"}
 ]
 
 ## ============================================================================
@@ -502,6 +503,29 @@ func spawn_pet(pet_name: String) -> void:
 		current_scene.add_child(octopet)
 		spawned_pet = octopet
 		print("[Shop] Octopet spawned successfully!")
+
+	elif pet_name == "🐧 Pengpet":
+		# Check if scene exists
+		if not ResourceLoader.exists("res://scenes/pets/pengpet.tscn"):
+			print("[Shop] Error: pengpet.tscn not found!")
+			return
+
+		# Load and instantiate the scene
+		var pengpet_scene = load("res://scenes/pets/pengpet.tscn")
+		if not pengpet_scene:
+			print("[Shop] Error: Failed to load pengpet scene!")
+			return
+
+		var pengpet = pengpet_scene.instantiate()
+		if not pengpet:
+			print("[Shop] Error: Failed to instantiate pengpet!")
+			return
+
+		# Add to scene and store reference
+		current_scene.add_child(pengpet)
+		spawned_pet = pengpet
+		print("[Shop] Pengpet spawned successfully!")
+
 	else:
 		print("[Shop] Unknown pet: ", pet_name)
 

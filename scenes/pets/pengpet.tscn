@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://bg4kg5jl0y6y2"]
+
+[ext_resource type="Script" uid="uid://bq431ht1yxkiy" path="res://scripts/pets/pengpet.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://oa67hs0lk0px" path="res://assets/sprites/pengpet.png" id="2_cnjws"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o55p1"]
+atlas = ExtResource("2_cnjws")
+region = Rect2(121, 332, 121, 166)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1lp5a"]
+atlas = ExtResource("2_cnjws")
+region = Rect2(121, 0, 121, 166)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hcsfc"]
+atlas = ExtResource("2_cnjws")
+region = Rect2(0, 166, 121, 166)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_w15bu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o55p1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1lp5a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hcsfc")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pengpet"]
+radius = 15.0
+
+[node name="Pengpet" type="CharacterBody2D" groups=["pet"]]
+script = ExtResource("1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.23, 0.23)
+sprite_frames = SubResource("SpriteFrames_w15bu")
+animation = &"walk"
+frame_progress = 0.79773
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_pengpet")
