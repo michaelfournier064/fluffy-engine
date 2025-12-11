@@ -60,7 +60,7 @@ func load_key_bindings() -> void:
 func save_current_bindings() -> void:
 	# Get current InputMap state
 	var key_bindings = {}
-	var actions = ["move_left", "move_right", "move_up", "move_down", "cast_line", "attack", "open_inventory"]
+	var actions = ["move_left", "move_right", "move_up", "move_down", "cast_line", "open_inventory"]
 	
 	for action in actions:
 		if InputMap.has_action(action):

@@ -1,9 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://c6qrw7yt8y5sm"]
+[gd_scene load_steps=20 format=3 uid="uid://c6qrw7yt8y5sm"]
 
 [ext_resource type="Script" uid="uid://dn8uabaqqhx37" path="res://scripts/player.gd" id="1_player"]
 [ext_resource type="Texture2D" uid="uid://dq450lxsxoq7x" path="res://assets/tilesets/fisherplayer.png" id="2_texture"]
 [ext_resource type="PackedScene" uid="uid://cqgf7v8w2xk3e" path="res://scenes/ui/fishing_ui.tscn" id="3_fishing_ui"]
-[ext_resource type="Script" path="res://scripts/fishing/fishing_system.gd" id="4_fishing_system"]
+[ext_resource type="Script" uid="uid://dnjab03brphdu" path="res://scripts/fishing/fishing_system.gd" id="4_fishing_system"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_attack1"]
 atlas = ExtResource("2_texture")
@@ -29,6 +29,14 @@ region = Rect2(0, 0, 169, 123)
 atlas = ExtResource("2_texture")
 region = Rect2(169, 0, 169, 123)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_lvxji"]
+atlas = ExtResource("2_texture")
+region = Rect2(0, 0, 169, 123)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p47bc"]
+atlas = ExtResource("2_texture")
+region = Rect2(338, 0, 169, 123)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_walk2"]
 atlas = ExtResource("2_texture")
 region = Rect2(169, 123, 169, 123)
@@ -36,6 +44,14 @@ region = Rect2(169, 123, 169, 123)
 [sub_resource type="AtlasTexture" id="AtlasTexture_walk3"]
 atlas = ExtResource("2_texture")
 region = Rect2(338, 123, 169, 123)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_75vfm"]
+atlas = ExtResource("2_texture")
+region = Rect2(507, 123, 169, 123)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0owmy"]
+atlas = ExtResource("2_texture")
+region = Rect2(507, 0, 169, 123)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_player"]
 animations = [{
@@ -53,19 +69,30 @@ animations = [{
 "texture": SubResource("AtlasTexture_attack4")
 }],
 "loop": false,
-"name": &"attack",
+"name": &"fishing",
 "speed": 10.0
 }, {
 "frames": [{
-"duration": 1.0,
+"duration": 5.0,
 "texture": SubResource("AtlasTexture_idle1")
 }, {
-"duration": 3.11,
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_idle2")
 }],
 "loop": true,
 "name": &"idle",
 "speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lvxji")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p47bc")
+}],
+"loop": true,
+"name": &"walk_down",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -75,8 +102,19 @@ animations = [{
 "texture": SubResource("AtlasTexture_walk3")
 }],
 "loop": true,
-"name": &"walk",
+"name": &"walk_side",
 "speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_75vfm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0owmy")
+}],
+"loop": true,
+"name": &"walk_up",
+"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_player"]
@@ -91,7 +129,7 @@ script = ExtResource("1_player")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_player")
-animation = &"idle"
+animation = &"walk_up"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 4)

@@ -33,7 +33,6 @@ const CONTROL_ACTIONS = {
 	"move_up": "Move Up",
 	"move_down": "Move Down",
 	"cast_line": "Cast/Reel Line",
-	"attack": "Attack",
 	"open_inventory": "Open Inventory"
 }
 
@@ -281,7 +280,6 @@ func _on_reset_controls_pressed() -> void:
 		"move_up": KEY_W,
 		"move_down": KEY_S,
 		"cast_line": KEY_SPACE,
-		"attack": KEY_J,
 		"open_inventory": KEY_I
 	}
 	

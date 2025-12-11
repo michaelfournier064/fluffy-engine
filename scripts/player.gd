@@ -7,12 +7,12 @@ extends CharacterBody2D
 @onready var fishing_ui: CanvasLayer = $FishingUI
 
 var is_fishing: bool = false
-var is_attacking: bool = false
 var facing_direction: int = 1  # 1 for right, -1 for left
+var last_vertical_direction: int = 0  # 1 for down, -1 for up, 0 for none
 var in_water_area: bool = false
 
 func _physics_process(_delta: float) -> void:
-	if not is_fishing and not is_attacking:
+	if not is_fishing:
 		handle_movement()
 	else:
 		velocity = Vector2.ZERO
@@ -31,31 +31,36 @@ func handle_movement() -> void:
 		facing_direction = -1
 	if Input.is_action_pressed("move_up"):
 		input_vector.y -= 1
+		last_vertical_direction = -1
 	if Input.is_action_pressed("move_down"):
 		input_vector.y += 1
+		last_vertical_direction = 1
 
 	input_vector = input_vector.normalized()
 	velocity = input_vector * speed
 
-	# Update sprite direction
+	# Update sprite direction for horizontal movement
 	if input_vector.x != 0:
 		animated_sprite.flip_h = input_vector.x < 0
 
 func update_animation() -> void:
-	if is_attacking:
-		return
-
 	if is_fishing:
-		if animated_sprite.animation != "idle":
-			animated_sprite.play("idle")
+		if animated_sprite.animation != "fishing":
+			animated_sprite.play("fishing")
 		return
 
 	if velocity.length() > 0:
-		animated_sprite.play("walk")
+		# Prioritize vertical movement for animation
+		if abs(velocity.y) > abs(velocity.x):
+			if velocity.y < 0:
+				animated_sprite.play("walk_up")
+			else:
+				animated_sprite.play("walk_down")
+		else:
+			animated_sprite.play("walk_side")
 	else:
-		# Maintain the facing direction when idle
-		animated_sprite.flip_h = facing_direction < 0
-		animated_sprite.play("idle")
+		# Stop animation on current frame when not moving
+		animated_sprite.stop()
 
 func _ready() -> void:
 	# Connect fishing UI to fishing system
@@ -71,32 +76,22 @@ func _input(event: InputEvent) -> void:
 			# Start fishing
 			toggle_fishing()
 
-	if event.is_action_pressed("attack") and not is_attacking and not is_fishing:
-		perform_attack()
-
 func toggle_fishing() -> void:
 	if not in_water_area and not is_fishing:
 		print("Need to be near water to fish!")
 		return
-	
+
 	is_fishing = !is_fishing
 	if is_fishing:
-		# Play casting animation if available, otherwise idle
+		# Play casting animation if available, otherwise fishing
 		if animated_sprite.sprite_frames.has_animation("casting"):
 			animated_sprite.play("casting")
 			await animated_sprite.animation_finished
-		animated_sprite.play("idle")
+		animated_sprite.play("fishing")
 		# Start the fishing minigame
 		fishing_system.start_fishing()
 	else:
-		animated_sprite.play("idle")
 		fishing_system.end_fishing()
-
-func perform_attack() -> void:
-	is_attacking = true
-	animated_sprite.play("attack")
-	await animated_sprite.animation_finished
-	is_attacking = false
 
 # Called when entering water area
 func _on_water_area_entered(_area: Area2D) -> void:
