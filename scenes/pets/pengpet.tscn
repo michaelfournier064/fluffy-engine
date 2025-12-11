@@ -33,7 +33,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pengpet"]
-radius = 15.0
+radius = 8.0
 
 [node name="Pengpet" type="CharacterBody2D" groups=["pet"]]
 script = ExtResource("1")
