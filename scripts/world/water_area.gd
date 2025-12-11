@@ -3,7 +3,7 @@ extends Area2D
 
 ## Marks an area as fishable water with enhanced visual effects
 
-@onready var water_sprite: ColorRect = $WaterSprite
+@onready var water_sprite: ColorRect = get_node_or_null("WaterSprite")
 
 var time: float = 0.0
 var base_color: Color = Color(0.15, 0.35, 0.65, 0.75)
@@ -13,6 +13,10 @@ func _ready() -> void:
 	# Set collision layer/mask for water detection
 	collision_layer = 2  # Water layer
 	collision_mask = 0
+	
+	# Warn if water sprite is missing (visual effects won't work)
+	if not water_sprite:
+		push_warning("WaterSprite node not found. Water visual effects disabled.")
 
 func _process(delta: float) -> void:
 	if water_sprite:

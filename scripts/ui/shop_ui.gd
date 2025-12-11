@@ -78,6 +78,8 @@ var shop_pets = [
 func _ready() -> void:
 	# Always process even when game is paused
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	# Add to group so PauseManager can find and close it
+	add_to_group("shop_ui")
 	setup_shop()
 
 ## ============================================================================

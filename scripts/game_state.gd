@@ -51,6 +51,26 @@ func save_game_state() -> void:
 		push_error("No save ID set, cannot save game state")
 		return
 	
+	# Update player position from the actual player node if available
+	update_player_position()
+	
+	# Determine the correct scene to save
+	var scene_to_save = get_tree().current_scene.scene_file_path
+	
+	# If we're in the settings screen, use the previous scene from PauseManager
+	if scene_to_save == "res://scenes/ui/settings_screen.tscn":
+		if has_node("/root/PauseManager"):
+			var pause_manager = get_node("/root/PauseManager")
+			if pause_manager.previous_scene != "" and pause_manager.previous_scene != "res://scenes/ui/settings_screen.tscn":
+				scene_to_save = pause_manager.previous_scene
+			else:
+				# Default to main scene if no valid previous scene
+				scene_to_save = "res://scenes/world/main.tscn"
+	
+	# Don't save UI scenes as the game scene
+	if scene_to_save.begins_with("res://scenes/ui/"):
+		scene_to_save = "res://scenes/world/main.tscn"
+	
 	var save_data = {
 		"player_name": player_name,
 		"level": player_level,
@@ -60,12 +80,12 @@ func save_game_state() -> void:
 		"total_playtime": total_playtime,
 		"player_position_x": player_position.x,
 		"player_position_y": player_position.y,
-		"current_scene": get_tree().current_scene.scene_file_path
+		"current_scene": scene_to_save
 	}
 	
 	DatabaseManager.update_save(current_save_id, save_data)
 	game_saved.emit()
-	print("Game state saved")
+	print("Game state saved to scene: ", scene_to_save)
 
 ## Create new game
 func create_new_game(save_name: String, p_name: String = "") -> void:
@@ -103,7 +123,13 @@ func check_level_up() -> void:
 		exp_needed = player_level * 100
 		print("Level up! Now level " + str(player_level))
 
-## Reset game state
+## Update player position from the actual player node in the scene
+func update_player_position() -> void:
+	var player = get_tree().get_first_node_in_group("player")
+	if player and player is CharacterBody2D:
+		player_position = player.position
+		print("[GameState] Player position updated: ", player_position)
+
 func reset_game_state() -> void:
 	current_save_id = -1
 	player_name = ""

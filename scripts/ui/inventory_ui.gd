@@ -16,6 +16,9 @@ func _ready() -> void:
 	if has_node("/root/UIAudioManager"):
 		get_node("/root/UIAudioManager").setup_all_buttons(self)
 	
+	# Add to group so PauseManager can find and close it
+	add_to_group("inventory_ui")
+	
 	hide_inventory()
 	close_button.pressed.connect(_on_close_pressed)
 

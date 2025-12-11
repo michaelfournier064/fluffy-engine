@@ -91,6 +91,14 @@ func _on_load_save(save_id: int) -> void:
 		GameState.current_save_id = save_id
 		GameState.load_game_state(save_data)
 		
+		# Clear pause state and disable pausing during scene load
+		if has_node("/root/PauseManager"):
+			var pause_manager = get_node("/root/PauseManager")
+			pause_manager.is_paused = false
+			pause_manager.previous_scene = ""
+			pause_manager.can_pause = false  # Disable pausing during load
+			get_tree().paused = false
+		
 		# Load the game scene
 		var scene_path = save_data.get("current_scene", "res://scenes/world/main.tscn")
 		if scene_path == null or scene_path == "":

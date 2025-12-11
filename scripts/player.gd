@@ -72,6 +72,21 @@ func _ready() -> void:
 		fishing_system.fishing_ended.connect(_on_fishing_ended)
 		fishing_system.fish_caught.connect(_on_fish_caught)
 		fishing_system.fish_escaped.connect(_on_fish_escaped)
+	
+	# Connect to GameState signals to load player position
+	if has_node("/root/GameState"):
+		var game_state = get_node("/root/GameState")
+		game_state.game_loaded.connect(_on_game_loaded)
+		# Apply position immediately if already loaded
+		if game_state.current_save_id >= 0 and game_state.player_position != Vector2.ZERO:
+			position = game_state.player_position
+			print("[Player] Position loaded: ", position)
+	
+	# Re-enable pausing now that the game scene is loaded
+	if has_node("/root/PauseManager"):
+		var pause_manager = get_node("/root/PauseManager")
+		pause_manager.can_pause = true
+		print("[Player] Pause manager re-enabled")
 
 func _input(event: InputEvent) -> void:
 	# Left click to cancel fishing
@@ -145,3 +160,11 @@ func _on_fish_caught(_fish_data: Dictionary) -> void:
 func _on_fish_escaped() -> void:
 	# Fishing will end automatically via fishing_ended signal
 	pass
+
+# Called when game is loaded from a save
+func _on_game_loaded() -> void:
+	if has_node("/root/GameState"):
+		var game_state = get_node("/root/GameState")
+		if game_state.player_position != Vector2.ZERO:
+			position = game_state.player_position
+			print("[Player] Position restored: ", position)
