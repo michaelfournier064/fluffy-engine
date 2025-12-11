@@ -554,10 +554,10 @@ func apply_upgrade(upgrade: Dictionary) -> void:
 ## SHOP CONTROLS
 ## ============================================================================
 
-## Listen for E key to open/close shop
+## Listen for open_shop action to open/close shop
 func _input(event: InputEvent) -> void:
-	# Toggle shop with E key
-	if event is InputEventKey and event.pressed and event.keycode == KEY_E:
+	# Toggle shop with open_shop action (default: E key)
+	if event.is_action_pressed("open_shop"):
 		toggle_shop()
 
 ## Opens or closes the shop and pauses/unpauses the game

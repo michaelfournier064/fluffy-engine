@@ -33,7 +33,8 @@ const CONTROL_ACTIONS = {
 	"move_up": "Move Up",
 	"move_down": "Move Down",
 	"cast_line": "Cast/Reel Line",
-	"open_inventory": "Open Inventory"
+	"open_inventory": "Open Inventory",
+	"open_shop": "Open Shop"
 }
 
 var control_buttons: Dictionary = {}
