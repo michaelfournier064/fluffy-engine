@@ -198,14 +198,11 @@ func _on_minigame_started(sequence: Array) -> void:
 	action_label.visible = false
 	minigame_container.visible = true
 
-	# Convert action names to key letters
+	# Get actual bound keys from InputManager
 	var key_letters = []
 	for action in sequence:
-		match action:
-			"move_up": key_letters.append("W")
-			"move_down": key_letters.append("S")
-			"move_left": key_letters.append("A")
-			"move_right": key_letters.append("D")
+		var key_display = InputManager.get_action_key_display(action)
+		key_letters.append(key_display)
 
 	sequence_label.text = " ".join(key_letters)
 	progress_label.text = "Press the keys in order!"

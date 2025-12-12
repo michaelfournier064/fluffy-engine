@@ -76,3 +76,38 @@ func save_current_bindings() -> void:
 	}
 	DatabaseManager.save_settings(settings)
 	print("Key bindings saved")
+
+## Get the display name of the key currently bound to an action
+## Returns the key as a string (e.g., "W", "A", "S", "D", "Up", etc.)
+func get_action_key_display(action: String) -> String:
+	if not InputMap.has_action(action):
+		return "?"
+	
+	var events = InputMap.action_get_events(action)
+	if events.size() == 0:
+		return "?"
+	
+	var event = events[0]
+	if event is InputEventKey:
+		# Get the key string from the physical keycode
+		var keycode = event.physical_keycode
+		var key_string = OS.get_keycode_string(keycode)
+		
+		# For single letter keys, return just the letter
+		if key_string.length() == 1:
+			return key_string.to_upper()
+		
+		# For arrow keys and special keys, clean up the display
+		match keycode:
+			KEY_UP: return "↑"
+			KEY_DOWN: return "↓"
+			KEY_LEFT: return "←"
+			KEY_RIGHT: return "→"
+			KEY_SPACE: return "Space"
+			KEY_ENTER: return "Enter"
+			KEY_SHIFT: return "Shift"
+			KEY_CTRL: return "Ctrl"
+			KEY_ALT: return "Alt"
+			_: return key_string
+	
+	return "?"
