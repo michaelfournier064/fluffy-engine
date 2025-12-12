@@ -1,4 +1,4 @@
-# res://scripts/input_manager.gd
+# res://scripts/managers/input_manager.gd
 extends Node
 
 ## Input Manager - Loads and applies saved key bindings on startup

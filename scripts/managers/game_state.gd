@@ -1,4 +1,4 @@
-# res://scripts/game_state.gd
+# res://scripts/managers/game_state.gd
 extends Node
 
 ## Global game state manager

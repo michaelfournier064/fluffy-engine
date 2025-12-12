@@ -1,6 +1,6 @@
 [gd_scene load_steps=20 format=3 uid="uid://c6qrw7yt8y5sm"]
 
-[ext_resource type="Script" uid="uid://dn8uabaqqhx37" path="res://scripts/player.gd" id="1_player"]
+[ext_resource type="Script" uid="uid://dn8uabaqqhx37" path="res://scripts/player/player.gd" id="1_player"]
 [ext_resource type="Texture2D" uid="uid://dq450lxsxoq7x" path="res://assets/tilesets/fisherplayer.png" id="2_texture"]
 [ext_resource type="PackedScene" uid="uid://cqgf7v8w2xk3e" path="res://scenes/ui/fishing_ui.tscn" id="3_fishing_ui"]
 [ext_resource type="Script" uid="uid://dnjab03brphdu" path="res://scripts/fishing/fishing_system.gd" id="4_fishing_system"]

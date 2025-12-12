@@ -1,4 +1,4 @@
-# res://scripts/pause_manager.gd
+# res://scripts/managers/pause_manager.gd
 extends Node
 
 ## Pause Manager - Handles game pausing and settings access during gameplay
